@@ -1,0 +1,30 @@
+*{
+  font-size: large;
+  user-select: none;
+}
+.node{
+  color: beige;
+  background-color: hsl(220, 6%, 30%);
+  border-radius: 12px;
+  padding: 10px 30px;
+  margin: 10px;
+  text-align: center;
+  border: #3f3f3f 2px solid;
+  display: inline-block;
+}
+
+.add{
+  background-color: red;
+  width: max(50px, 10%);
+  display: flex;
+  justify-content: center;
+  border-radius: 12px;
+  padding: 5px;
+  margin: 10px;
+  cursor: pointer;
+}
+ input{
+  border-radius: 12px;
+  padding: 10px;
+  margin: 10px;
+ }
