@@ -36,6 +36,7 @@ function Arrow() {
   );
 }
 
+var redraw = true;
 function App() {
   var bo = new node(5);
   bo.next = new node(9);
@@ -43,7 +44,7 @@ function App() {
   const [linkedList, setLinkedList] = useState([]);
   const [nodeValue, setNodeValue] = useState();
   var [start, setStart] = useState();
-  const [inputData, setInputData] = useState([-1, 3,  5]);
+  const [inputData, setInputData] = useState([-1, 3, 5]);
   const [pointers, setPointers] = useState({});
   const dataRef = useRef();
 
@@ -53,7 +54,9 @@ function App() {
 
   useEffect(() => {
     setLinkedList([]);
-    parseLL(start);
+    if (redraw == true) {
+      parseLL(start);
+    }
   }, [start]);
 
   useEffect(() => {
@@ -70,7 +73,7 @@ function App() {
       <>
         <Node
           value={temp.data}
-          addr={temp.next?temp.addr:"NULL"}
+          addr={temp.next ? temp.addr : "NULL"}
           color={
             temp === pointers.current
               ? "current"
@@ -143,7 +146,7 @@ function App() {
     setNodeValue(nodeValue);
     setPointers({});
   }
-  
+
   // async function addNodeMiddle() {
   //   var current = start;
   //   var post = current.next;
@@ -171,41 +174,41 @@ function App() {
 
   async function addAscending() {
     var temp;
-    var current=null;
+    var current = null;
     var post = start;
     var newNode = new node(dataRef.current.value);
     setPointers({ post });
-    if(newNode.data<start.data)
-    {
-      newNode.next=start;
-      newNode.addr=start.addr;
-      start=newNode;
+    if (parseInt(newNode.data) < parseInt(start.data)) {
+      newNode.next = start;
+      newNode.addr = start.addr;
+      var nodeValue = getNode(newNode);
+      redraw = false;
+      setStart(newNode);
+      await new Promise((res) => setTimeout(res, 1000));
+      setNodeValue(nodeValue);
+      setPointers({});
+    } else {
+      while (post != null && parseInt(newNode.data) >= parseInt(post.data)) {
+        var pointers = await new Promise((resolve) => {
+          setTimeout(() => {
+            current = post;
+            post = current.next;
+            resolve({ current });
+          }, 1000);
+        });
+        setPointers(pointers);
+      }
+      newNode.next = current.next;
+      temp = newNode.addr;
+      newNode.addr = current.addr;
+      current.addr = temp;
+      current.next = newNode;
       var nodeValue = getNode(newNode);
       await new Promise((res) => setTimeout(res, 1000));
       setNodeValue(nodeValue);
       setPointers({});
     }
-    else{
-    while (post!=null && newNode.data>=post.data) {
-      var pointers = await new Promise((resolve) => {
-        setTimeout(() => {
-          current=post;
-          post = post.next;
-          resolve({ current });
-        }, 1000);
-      });
-      setPointers(pointers);
-    }
-    newNode.next = current.next;
-    temp=newNode.addr;
-    newNode.addr = current.addr;
-    current.addr=temp;
-    current.next = newNode;
-    var nodeValue = getNode(newNode);
-    await new Promise((res) => setTimeout(res, 1000));
-    setNodeValue(nodeValue);
-    setPointers({});
-  }}
+  }
   return (
     <>
       <div className="inputContainer">

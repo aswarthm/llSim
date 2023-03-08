@@ -75,7 +75,7 @@ input{
   scale: 1.1;
 }
 .current{
-  background-color: hsl(111, 76%, 53%);
+  background-color: hsl(0, 76%, 53%);
   scale: 1.1;
 }
 
