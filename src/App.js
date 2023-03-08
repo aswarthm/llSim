@@ -1,8 +1,12 @@
 import React, { useEffect, useRef, useState } from "react";
 import "./App.css";
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { solid, regular, brands, icon } from '@fortawesome/fontawesome-svg-core/import.macro' // <-- import styles to be used
-
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  solid,
+  regular,
+  brands,
+  icon,
+} from "@fortawesome/fontawesome-svg-core/import.macro"; // <-- import styles to be used
 
 class node {
   constructor(data) {
@@ -25,7 +29,11 @@ function Node({ value, addr, color }) {
 }
 
 function Arrow() {
-  return <div className="arrow"><FontAwesomeIcon icon={solid('arrow-right-long')} size={"2x"} /></div>;
+  return (
+    <div className="arrow">
+      <FontAwesomeIcon icon={solid("arrow-right-long")} size={"2x"} />
+    </div>
+  );
 }
 
 function App() {
@@ -35,7 +43,7 @@ function App() {
   const [linkedList, setLinkedList] = useState([]);
   const [nodeValue, setNodeValue] = useState();
   const [start, setStart] = useState();
-  const [inputData, setInputData] = useState([1, 2]);
+  const [inputData, setInputData] = useState([1, 2, 3, 4, 5]);
   const [pointers, setPointers] = useState({});
   const dataRef = useRef();
 
@@ -57,6 +65,25 @@ function App() {
     parseLL2(start);
   }, [pointers]);
 
+  function getNode(temp) {
+    return (
+      <>
+        <Node
+          value={temp.data}
+          addr={temp.next?temp.addr:"NULL"}
+          color={
+            temp === pointers.current
+              ? "current"
+              : temp === pointers.post
+              ? "post"
+              : ""
+          }
+        />
+        {temp.next !== null ? <Arrow /> : ""}
+      </>
+    );
+  }
+
   function handleData() {
     if (inputData !== "") {
       let nodeList = inputData.map((value) => {
@@ -77,22 +104,7 @@ function App() {
     while (temp != null) {
       var nodeValue = await new Promise((resolve) => {
         setTimeout(() => {
-          resolve(
-            <>
-              <Node
-                value={temp.data}
-                addr={temp.addr}
-                color={
-                  temp === pointers.current
-                    ? "current"
-                    : temp === pointers.post
-                    ? "post"
-                    : ""
-                }
-              />
-              {temp.next !== null ? <Arrow /> : ""}
-            </>
-          );
+          resolve(getNode(temp));
         }, 200);
       });
       setNodeValue(nodeValue);
@@ -103,22 +115,7 @@ function App() {
   function parseLL2(temp) {
     var result = [];
     while (temp != null) {
-      var nodeValue = (
-        <>
-          <Node
-            value={temp.data}
-                addr={temp.addr}
-            color={
-              temp === pointers.current
-                ? "current"
-                : temp === pointers.post
-                ? "post"
-                : ""
-            }
-          />
-          {temp.next !== null ? <Arrow /> : ""}
-        </>
-      );
+      var nodeValue = getNode(temp);
       result.push(nodeValue);
       temp = temp.next;
     }
@@ -141,22 +138,32 @@ function App() {
     }
     var newNode = new node(dataRef.current.value);
     current.next = newNode;
-    var nodeValue = (
-      <>
-        <Node
-          value={newNode.data}
-          addr={0}
-          color={
-            newNode === pointers.current
-              ? "current"
-              : newNode === pointers.post
-              ? "post"
-              : ""
-          }
-        />
-        {newNode.next !== null ? <Arrow /> : ""}
-      </>
-    );
+    var nodeValue = getNode(newNode);
+    await new Promise((res) => setTimeout(res, 1000));
+    setNodeValue(nodeValue);
+    setPointers({});
+  }
+  
+  async function addNodeMiddle() {
+    var current = start;
+    var post = current.next;
+    setPointers({ current });
+    var i = 0
+    while (i != 2) {
+      var pointers = await new Promise((resolve) => {
+        setTimeout(() => {
+          current = post;
+          post = current.next;
+          resolve({ current });
+        }, 1000);
+      });
+      setPointers(pointers);
+      i++
+    }
+    var newNode = new node(dataRef.current.value);
+    newNode.next = current.next
+    current.next = newNode;
+    var nodeValue = getNode(newNode);
     await new Promise((res) => setTimeout(res, 1000));
     setNodeValue(nodeValue);
     setPointers({});
@@ -171,7 +178,7 @@ function App() {
           defaultValue="0"
           ref={dataRef}
         />
-        <div className="add" role="button" onClick={() => addNode()}>
+        <div className="add" role="button" onClick={() => addNodeMiddle()}>
           Add
         </div>
       </div>

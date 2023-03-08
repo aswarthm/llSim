@@ -24,6 +24,7 @@ input{
   padding: 8px 16px;
   color: whitesmoke;
   box-shadow: 3px 4px black;
+  cursor: pointer;
 }
 
 .add:hover{
@@ -51,6 +52,10 @@ input{
   box-shadow: 3px 4px black;
 }
 
+.node:hover{
+  scale: 1.1;
+}
+
 .data{
   font-size: xx-large;
 }
@@ -67,6 +72,10 @@ input{
 
 .post{
   background-color: hsl(0, 76%, 53%);
+  scale: 1.1;
+}
+.current{
+  background-color: hsl(111, 76%, 53%);
   scale: 1.1;
 }
 
