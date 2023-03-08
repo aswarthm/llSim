@@ -42,8 +42,8 @@ function App() {
 
   const [linkedList, setLinkedList] = useState([]);
   const [nodeValue, setNodeValue] = useState();
-  const [start, setStart] = useState();
-  const [inputData, setInputData] = useState([1, 2, 3, 4, 5]);
+  var [start, setStart] = useState();
+  const [inputData, setInputData] = useState([-1, 3,  5]);
   const [pointers, setPointers] = useState({});
   const dataRef = useRef();
 
@@ -144,31 +144,68 @@ function App() {
     setPointers({});
   }
   
-  async function addNodeMiddle() {
-    var current = start;
-    var post = current.next;
-    setPointers({ current });
-    var i = 0
-    while (i != 2) {
+  // async function addNodeMiddle() {
+  //   var current = start;
+  //   var post = current.next;
+  //   setPointers({ current });
+  //   var i = 0
+  //   while (i != 2) {
+  //     var pointers = await new Promise((resolve) => {
+  //       setTimeout(() => {
+  //         current = post;
+  //         post = current.next;
+  //         resolve({ current });
+  //       }, 1000);
+  //     });
+  //     setPointers(pointers);
+  //     i++
+  //   }
+  //   var newNode = new node(dataRef.current.value);
+  //   newNode.next = current.next
+  //   current.next = newNode;
+  //   var nodeValue = getNode(newNode);
+  //   await new Promise((res) => setTimeout(res, 1000));
+  //   setNodeValue(nodeValue);
+  //   setPointers({});
+  // }
+
+  async function addAscending() {
+    var temp;
+    var current=null;
+    var post = start;
+    var newNode = new node(dataRef.current.value);
+    setPointers({ post });
+    if(newNode.data<start.data)
+    {
+      newNode.next=start;
+      newNode.addr=start.addr;
+      start=newNode;
+      var nodeValue = getNode(newNode);
+      await new Promise((res) => setTimeout(res, 1000));
+      setNodeValue(nodeValue);
+      setPointers({});
+    }
+    else{
+    while (post!=null && newNode.data>=post.data) {
       var pointers = await new Promise((resolve) => {
         setTimeout(() => {
-          current = post;
-          post = current.next;
+          current=post;
+          post = post.next;
           resolve({ current });
         }, 1000);
       });
       setPointers(pointers);
-      i++
     }
-    var newNode = new node(dataRef.current.value);
-    newNode.next = current.next
+    newNode.next = current.next;
+    temp=newNode.addr;
+    newNode.addr = current.addr;
+    current.addr=temp;
     current.next = newNode;
     var nodeValue = getNode(newNode);
     await new Promise((res) => setTimeout(res, 1000));
     setNodeValue(nodeValue);
     setPointers({});
-  }
-
+  }}
   return (
     <>
       <div className="inputContainer">
@@ -178,7 +215,7 @@ function App() {
           defaultValue="0"
           ref={dataRef}
         />
-        <div className="add" role="button" onClick={() => addNodeMiddle()}>
+        <div className="add" role="button" onClick={() => addAscending()}>
           Add
         </div>
       </div>
