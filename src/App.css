@@ -1,30 +1,110 @@
 *{
   font-size: large;
   user-select: none;
-}
-.node{
-  color: beige;
-  background-color: hsl(220, 6%, 30%);
-  border-radius: 12px;
-  padding: 10px 30px;
+  transition: all 0.4s ease;
   margin: 10px;
-  text-align: center;
-  border: #3f3f3f 2px solid;
-  display: inline-block;
+
+}
+
+.inputContainer{
+  display: flex;
+  justify-content: center;
+}
+
+input{
+  border: #3f3f3f 2px dashed;
+  border-radius: 12px;
+  padding: 8px;
 }
 
 .add{
-  background-color: red;
-  width: max(50px, 10%);
-  display: flex;
-  justify-content: center;
+  background-color: blueviolet;
+  border: outset black 3px;
   border-radius: 12px;
-  padding: 5px;
-  margin: 10px;
-  cursor: pointer;
+  padding: 8px 16px;
+  color: whitesmoke;
+  box-shadow: 3px 4px black;
 }
- input{
+
+.add:hover{
+  box-shadow: none;
+}
+
+.linkedList{
+  display: flex;
+}
+
+.node{    
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: beige;
+  background-color: hsl(271, 76%, 53%);
   border-radius: 12px;
   padding: 10px;
   margin: 10px;
- }
+  text-align: center;
+  border: black 3px solid;
+  
+  animation: nodeAnimation;
+  animation-duration: 0.2s;
+  box-shadow: 3px 4px black;
+}
+
+.data{
+  font-size: xx-large;
+}
+
+.addr{
+  border-radius: 7px;
+  background-color: hsl(271, 52%, 73%);
+  padding: 1px 4px;
+  margin-top: -38px;
+  margin-right: -5px;
+  color: rgb(255, 255, 255);
+}
+
+
+.post{
+  background-color: hsl(0, 76%, 53%);
+  scale: 1.1;
+}
+
+.arrow{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-left: 8px ;
+  animation: arrowAnimation;
+  animation-duration: 0.5s;
+}
+
+@keyframes nodeAnimation{
+  0%{
+      background:lightgray;
+      position: relative;
+      right: -50px;
+      scale: 1.1;
+  }
+  100%{
+      background: blueviolet;
+      position: relative;
+      right: 0px;
+      scale: 1;
+  }
+}
+
+
+@keyframes arrowAnimation{
+  0%{
+      position: relative;
+      rotate: -20deg;
+      right: -50px;
+  }
+  100%{
+      position: relative;
+      rotate: 0deg;
+      right: 0px;
+  }
+}
+
