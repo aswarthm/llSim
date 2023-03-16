@@ -8,14 +8,6 @@ body {
   background-color: #282c34;
   background-color: #fff;
 }
-.heading{
-  text-align: center;
-  font-size: 200;
-}
-.end{
-  margin-bottom: 0px;
-  margin-top: 390px;
-}
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',

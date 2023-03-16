@@ -210,6 +210,12 @@ function App() {
   }
   return (
     <>
+      <div className="heading">
+        <div className="headingText">
+          Linked List Visualiser - Insert in Ascending Order
+        </div>
+      </div>
+      
       <div className="inputContainer">
         <input
           className="dataInput"
@@ -223,6 +229,10 @@ function App() {
       </div>
       <div className="linkedList">
         {linkedList && linkedList.map((node) => node)}
+      </div>
+
+      <div className="end">
+        <h3>MADE WITH ❤️ BY ASWARTH AND PULKIT</h3>
       </div>
     </>
   );
