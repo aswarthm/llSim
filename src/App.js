@@ -7,7 +7,6 @@ import {
   brands,
   icon,
 } from "@fortawesome/fontawesome-svg-core/import.macro"; // <-- import styles to be used
-
 class node {
   constructor(data) {
     this.data = data;
@@ -43,7 +42,7 @@ function App() {
 
   const [linkedList, setLinkedList] = useState([]);
   const [nodeValue, setNodeValue] = useState();
-  var [start, setStart] = useState();
+  const [start, setStart] = useState();
   const [inputData, setInputData] = useState([-1, 3, 5]);
   const [pointers, setPointers] = useState({});
   const dataRef = useRef();
@@ -180,7 +179,7 @@ function App() {
     setPointers({ post });
     if (parseInt(newNode.data) < parseInt(start.data)) {
       newNode.next = start;
-      newNode.addr = start.addr;
+      //newNode.addr = start.addr;
       var nodeValue = getNode(newNode);
       redraw = false;
       setStart(newNode);
