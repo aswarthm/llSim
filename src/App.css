@@ -3,7 +3,10 @@
   user-select: none;
   transition: all 0.4s ease;
   margin: 10px;
+}
 
+body{
+  background-color: hsl(271, 76%, 96%);
 }
 
 .inputContainer{
@@ -15,6 +18,7 @@ input{
   border: #3f3f3f 2px dashed;
   border-radius: 12px;
   padding: 8px;
+  background-color: whitesmoke;
 }
 
 .add{
@@ -25,10 +29,17 @@ input{
   color: whitesmoke;
   box-shadow: 3px 4px black;
   cursor: pointer;
+  position: relative;
+  top: 0px;
+  left: 0px;
 }
 
 .add:hover{
+  transition: top bottom 0.2s ease;
   box-shadow: none;
+  position: relative;
+  top: 4px;
+  left: 3px;
 }
 
 .linkedList{
@@ -66,7 +77,7 @@ input{
   padding: 1px 4px;
   margin-top: -38px;
   margin-right: -5px;
-  color: rgb(255, 255, 255);
+  color: beige;
 }
 
 
@@ -133,7 +144,7 @@ input{
   text-align: center;
   font-size: xxx-large;
   font-weight: bold;
-  background-color: white;
+  background-color: hsl(271, 76%, 90%);
   color: blueviolet;
   border-radius: 12px;
   width: fit-content;
